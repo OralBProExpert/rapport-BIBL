@@ -15,14 +15,14 @@ Soit $\mathcal{F}$ l'ensemble des propositions sur un ensemble d'états $S$. Un 
 
 \subsection{Traces}
 
-La littérature distingue deux sémantiques principales données aux traces utilisées pour modéliser les scénarios d'attaque dans les modèles de sécurité.
+La littérature distingue deux sémantiques principales données aux traces utilisées pour modéliser les scénarios d'attaque dans les modèles de sécurité : les traces basées sur les actions (ou action-based), comme définies dans \cite{vigo2014process} et les traces basées sur les états (ou state-based), comme présentées dans \cite{audinot2017correct, pinchinat2020library, audinot2018guided}.
 
-\begin{definition}[Taces basées sur les actions (action-based)]
-Une trace basée sur les actions, comme utilisée dans \cite{vigo2014process} est une séquence finie d'actions $a_1 a_2 \ldots a_n$ où chaque action $a_i$ appartient à $\mathbb{B}$ l'ensemble des actions élémentaires de l'attaquant, modélisé par l'ensemble $\rightarrow$ des transitions du LTS.
+\begin{definition}[Taces action-based)]
+Une action-based sur les actions est une séquence finie d'actions $a_1 a_2 \ldots a_n$ où chaque action $a_i$ appartient à $\mathbb{B}$ l'ensemble des actions élémentaires de l'attaquant, modélisé par l'ensemble $\rightarrow$ des transitions du LTS.
 \end{definition}
 
-\begin{definition}[Traces basées sur les états (state-based)]
-Une trace state-based, comme présentée dans \cite{audinot2017correct, pinchinat2020library, audinot2018guided} est une séquence finie de vulations $\nu_1 \nu_2 \ldots \nu_n$ où chaque valuation $\nu_i$ est un ensemble de propositions atomiques vraies dans un état du LTS. 
+\begin{definition}[Traces state-based]
+Une trace state-based est une séquence finie de vulations $\nu_1 \nu_2 \ldots \nu_n$ où chaque valuation $\nu_i$ est un ensemble de propositions atomiques vraies dans un état du LTS. 
 \end{definition}
 
 \begin{definition}[Concaténation synchrone]

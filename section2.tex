@@ -132,7 +132,7 @@ Cependant, cette transformation requiert une intervention humaine pour regrouper
 Ainsi, bien que des traductions existent entre les ATs et les AGs, elles ne conservent pas l'objectif principal de chacun des modèles sans l'introduction d'informations analogues.
 Cela souligne la différence dans les informations que chaque modèle cherche à capturer et à représenter : les états clés atteints au cours de l'attaque pour les AGs, et la décomposition de l'attaque en sous-objectifs organisés de manière hiérarchique pour les ATs.
 
-\subsubsection{Analyse quantitative : arbres vs graphes d'attaque}
+\subsubsection{Analyse quantitative : ATs vs AGs}
 
 les différences d'expressivité entre les arbres et AGs citées précédemment se concrétisent principalement dans le cadre de l'analyse quantitative des scénarios d'attaque.
 
@@ -146,3 +146,7 @@ Cependant, cela ne les empêchent pas de supporter des analyses quantitatives co
 \vspace{.2cm}
 
 En revanche, par leur structure concentrée sur les états du système modélisé, les AGs permettent une représentation détaillée des informations quantitatives au cours de l'attaque. L’analyse quantitative nécessite souvent des techniques probabilistes avancées, telles que les graphes d’attaque bayésiens ou des méthodes d’inférence approximative/exacte \cite{poolsappasit2012dynamic, munoz2017efficient}. Chaque nœud peut être associé à une probabilité de compromission et un impact, et les risques sont propagés à travers les chemins du graphe pour calculer des métriques globales comme la probabilité de compromis du système ou la perte attendue.
+
+\vspace{.2cm}
+
+Dans la suite de ce rapport, nous nous concentrerons principalement sur les arbres d'attaque, en raison de leur popularité et de leur efficacité pour l'analyse qualitative des scénarios d'attaque.

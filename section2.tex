@@ -1,0 +1,148 @@
+
+\section{Modélisation d'attaques à l'aide de modèles graphiques de sécurité}
+
+\subsection{Avantages des modèles graphiques de sécurité}
+
+Les modèles graphiques de sécurité, tels que les arbres d'attaque ou les graphes d'attaque, sont largement utilisés pour représenter et analyser les scénarios d'attaque contre des systèmes informatiques. 
+Il s'agit de structures mathématiques qui modélisent les différentes étapes qu'un attaquant peut suivre pour compromettre un système, en décomposant les objectifs d'attaque en sous-objectifs plus petits.
+
+Ces modèles offrent plusieurs avantages clés :
+\begin{itemize}
+  \item \textbf{Communication} : Ils fournissent une visualisation intuitive des scénarios d'attaque, facilitant la compréhension et la communication entre les parties prenantes, y compris les experts en sécurité, les développeurs et les gestionnaires.
+  \item \textbf{Raisonnement} : Leur sémantique formelle permet leur mécanisation, permettant leur génération automatique, l'identification automatique des vulnérabilités par test d'atteignabilité, ou encore l'analyse numérique des scénarios d'attaque (coût, probabilité de succès, etc.).
+\end{itemize}
+
+\subsection{Principaux modèles graphiques de sécurité}
+
+\subsubsection{Arbres d'attaque}
+
+\begin{figure}[ht]
+\centering
+\begin{minipage}{0.45\textwidth}
+  \centering
+  \includegraphics[width=.5\textwidth]{images/figures/action_based_attack_tree_example.pdf}
+  \caption{Un AT action-based \cite{audinot2018thesis}}
+  \label{fig:action-based-attack-tree-example}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+  \centering
+  \includegraphics[width=.7\textwidth]{images/figures/state_based_attack_tree_example.pdf}
+  \caption{Un AT state-based \cite{audinot2018thesis}}
+  \label{fig:state-based-attack-tree-example}
+\end{minipage}
+\end{figure}
+
+Les arbres d'attaque (AT) sont des structures arborescentes où chaque nœud représente un objectif d'attaque, et les feuilles représentent des actions élémentaires que l'attaquant peut entreprendre pour atteindre ces objectifs. Leur but est de mettre en évidence Les nœuds internes sont connectés par des opérateurs logiques tels que \AND, \OR, et parfois des opérateurs séquentiels comme \SAND (\AND séquentiel) pour modéliser des dépendances temporelles entre les actions.
+
+Les figures \ref{fig:action-based-attack-tree-example} et \ref{fig:state-based-attack-tree-example} présentent un exemple d’arbre d’attaque action-based (à gauche), et state-based (à droite). Cet exemple montre comment une attaque peut être décomposé en sous-objectifs, reliés par des opérateurs logiques \AND, \OR et \SAND.
+
+\newpage
+
+Dans la littérature, les arbres d'attaque existent sous plusieurs variantes, différant par leur sémantique.
+On distingue principalement deux approches :
+\begin{itemize}
+  \item \textbf{Basé sur les actions (Action-based)} : où les traces de l'arbre sont une séquence d'actions de l'attaquant. Cette approche met l'accent sur les transitions d'états du système.
+ 
+    Ainsi, une feuille de l'arbre, correspondant à un ensemble contenant une trace composée d'une seule action élémentaire de l'attaquant, qui est modélisée par une transition entre états du système.
+
+  \item \textbf{Basé sur les états (State-based)} : introduite dans \cite{audinot2017correct} où les traces de l'arbre sont une séquence de valuations sur l'état du système. Cette approche se concentre sur les conditions du système avant et après les actions de l'attaquant.
+\end{itemize}
+
+\subsubsection{Graphes d'attaque}
+
+\begin{figure}[h]
+  \centering
+  \input{images/figures/tikz/attack_graph_example.tex}
+  \caption{Exemple d'un AG}
+  \label{fig:attack-graph-example}
+\end{figure}
+Dans \cite{sheyner2002automated} un graphe d'attaque (AG) est défini comme un tuple $(S, \rightarrow, S_0, S_s)$, où $S$ est un ensemble de nœuds représentant les états du système, $\rightarrow \subseteq S \times S$ est une relation de transition, $S_0 \subseteq S$ correspond à l’ensemble des états initiaux, et $S_s \subseteq S$ désigne l’ensemble des états cibles que l’attaquant cherche à atteindre.
+
+La figure \ref{fig:attack-graph-example} illustre un exemple simple de graphe d’attaque, qui admet les modélisé les attaques dont le but est d’atteindre l’état $s_7$ à partir de l’état initial $s_0$. Des états intermédiaires sont inclus pour représenter les étapes clés de l’attaque.
+
+Une autre définition, proposée par \cite{pinchinat2014towards}, modélise un graphe d’attaque comme un tuple $(S, \delta, S_0, S_s)$, où $\delta : S \times \mathbb{B} \rightarrow S$ est une fonction de transition étiquetée par des éléments de $\mathbb{B}$, représentant les actions de l’attaquant. Cette formulation impose que chaque arête soit explicitement associée à une action spécifique, tandis que la première autorise un niveau d’abstraction plus élevé en ne contraignant pas les transitions à être directement liées à une seule action.
+
+\subsection{Comparaison entre arbres et graphes d'attaque}
+
+\subsubsection{Traduction d'ATs en AGs}
+
+Soit un AT $\tau$ défini sur un LTS $(S, \rightarrow, \lambda)$.
+
+Dans \cite{audinot2017correct}, un arbre d’attaque $\tau$ induit un automate
+$\automaton_\tau = (Q, A, \delta, I, F)$ tel que les traces admisses par $\automaton_\tau$ coïncide avec l’ensemble des traces admissibles de $\tau$, où :
+\begin{itemize}
+  \item $Q$ est l'ensemble des états de l'automate, construit à partir des nœuds de l'AT ;
+  \item $A$ est l'alphabet des actions de l'attaquant ;
+  \item $\delta : Q \times A \rightarrow Q$ est la fonction de transition, définie en fonction des relations entre les nœuds de l'AT ;
+  \item $I \subseteq Q$ est l'ensemble des états initiaux;
+  \item $F \subseteq Q$ est l'ensemble des états finaux.
+\end{itemize}
+
+À partir de cet automate, on peut définir un AG qui admet les mêmes traces que $\tau$. 
+$G_\tau = (Q, \rightarrow_G, I, F)$, où la relation de transition 
+$\rightarrow_G$ est induite par la fonction de transition $\delta$.
+
+Cependant, dans le graphe ainsi construit, toutes les étapes intermédiaires parcourues par l’attaquant pour passer d’un état A à un état B sont explicitement représentées. Cela va à l’encontre de l’objectif principal des graphes d’attaque, qui est de ne retenir que les états clés atteints durant le déroulement de l’attaque.
+
+% \subsubsection{SP-Graphs et arbres d'attaque}
+%
+% D'une manière similaire, dans \cite{jhawar2015attack}, une sémantique équivalente aux arbres d’attaque est proposée en utilisant des Series-Parallel Graphs (SP-Graphs).
+%
+% Un graphe source-cible (source-sink graph) est un graphe orienté $G = (V, E, s, t)$ avec un nœud source $s \in V$ et un nœud puits $t \in V$, tel que chaque nœud $v \in V$ est sur un chemin de $s$ à $t$.
+%
+% Un SP-Graph est un graphe source-puits construit en introduisant deux opérations de composition :
+% \begin{itemize}
+%   \item \textbf{Composition parallèle} ($G_i \pcomp G_j$) : où deux graphes $G_i$ et $G_j$ sont combinés en parallèle, partageant le même nœud source et le même nœud puits.
+%   \item \textbf{Composition séquentielle} ($G_i \scomp G_j$) : où le nœud puits de $G_i$ est connecté au nœud source de $G_j$, formant une séquence de deux graphes.
+% \end{itemize}
+%
+% On peut ainsi définir une traduction d’un arbre d’attaque $\tau$ en un SP-Graph de manière récursive :
+% \begin{itemize}
+%   \item Si $\tau$ est une feuille représentant une action élémentaire $a$, alors $G_\tau^{SP}$ est un graphe avec un nœud source $s$, un nœud puits $t$, et une arête étiquetée par $a$ reliant $s$ à $t$.
+%   \item Si le nœud racine de $\tau$ est un opérateur \SAND avec des sous-arbres $\tau_0, \tau_1, \ldots, \tau_n$, alors $G_\tau^{SP} = G_{\tau_0}^{SP} \scomp G_{\tau_1}^{SP} \scomp \ldots \scomp G_{\tau_n}^{SP}$.
+%   \item Si le nœud racine de $\tau$ est un opérateur \AND avec des sous-arbres $\tau_0, \tau_1, \ldots, \tau_n$, alors $G_\tau^{SP} = G_{\tau_0}^{SP} \pcomp G_{\tau_1}^{SP} \pcomp \ldots \pcomp G_{\tau_n}^{SP}$.
+%   \item Si le nœud racine de $\tau$ est un opérateur \OR avec des sous-arbres $\tau_0, \tau_2, \ldots, \tau_n$, alors $G_\tau^{SP} = G_{\tau_0}^{SP} \cup G_{\tau_1}^{SP} \cup \ldots \cup G_{\tau_n}^{SP}$
+% \end{itemize}
+%
+% On peut ainsi induire un graphe d'attaque $G'_\tau$ à partir du SP-Graph $G_\tau^{SP}$, qui conserve les mêmes traces que l'arbre d'attaque initial $\tau$.
+%
+% Cependant, de nouveau, cette construction perd l'objectif principal des graphes d'attaque, qui est de ne retenir que les états clés atteints durant le déroulement de l’attaque, en incluant toutes les étapes intermédiaires.
+
+\subsubsection{Traduction pertinente de graphes en arbres d'attaque}
+
+En revanche, dans \cite{pinchinat2014towards}, une traduction d’un graphe d’attaque en un arbre d’attaque est proposée, en conservant les mêmes traces.
+
+La méthode prend en entrée :
+\begin{enumerate}
+  \item Un graphe d’attaque $G = (S, \delta, S_0, S_s)$, où toutes les transitions de $G$ sont étiquetées par des actions issues de $\mathbb{B}$ ;
+  \item Une hiérarchie d'actions de haut niveau $\mathbb{H} = (\{\mathcal{H}_k) \}_{0 \leq k \leq K}, \mathcal{R})$, où :
+    \begin{itemize}
+      \item $\mathcal{H}_0 = \mathbb{B}$ est l'ensemble des actions élémentaires de l'attaquant ;
+      \item $\mathcal{H}_k$ pour $0 < k \leq K$ est un ensemble d'actions de plus haut niveau, chacune étant définie comme une séquence d'actions appartenant à $\bigcup_{0 \leq j < k} \mathcal{H}_j$. \\Pour la suite, on note $\mathcal{H} = \bigcup_{0 \leq k \leq K} \mathcal{H}_k$ l'ensemble de toutes les actions. ;
+      \item $\mathcal{R} \subseteq \mathcal{H} \times \mathcal{H}^*$ est une relation définissant la décomposition des actions de plus haut niveau en séquences d'actions de niveau inférieur.
+    \end{itemize}
+\end{enumerate}
+Et produit en sortie un arbre d’attaque $\tau_G$, labéllé par des actions de $\mathcal{H}$, tel que le langage reconnu par $\tau_G$ coïncide avec l’ensemble des traces admissibles de $G$.
+
+Cependant, cette transformation requiert une intervention humaine pour regrouper plusieurs actions élémentaires en actions de plus haut niveau, afin d'obtenir un AT pertinent.
+
+\vspace{.2cm}
+
+Ainsi, bien que des traductions existent entre les ATs et les AGs, elles ne conservent pas l'objectif principal de chacun des modèles sans l'introduction d'informations analogues.
+Cela souligne la différence dans les informations que chaque modèle cherche à capturer et à représenter : les états clés atteints au cours de l'attaque pour les AGs, et la décomposition de l'attaque en sous-objectifs organisés de manière hiérarchique pour les ATs.
+
+\subsubsection{Analyse quantitative : arbres vs graphes d'attaque}
+
+les différences d'expressivité entre les arbres et AGs citées précédemment se concrétisent principalement dans le cadre de l'analyse quantitative des scénarios d'attaque.
+
+\vspace{.2cm}
+
+En effet, par leur structure hiérarchique et acyclique, les ATs permettent une analyse plus directe et efficace des métriques telles que le coût total de l'attaque, la probabilité de succès, ou encore le temps nécessaire pour mener à bien l'attaque.
+dans ces analyses, des valeurs numériques sont attribuées aux feuilles de l'arbre, puis sont agrégées vers la racine en fonction des opérateurs logiques utilisés (\AND, \OR, \SAND).
+Le survey \cite{widel2019survey} offre un aperçu complet des différentes méthodes d'analyse quantitative appliquées aux ATs.
+Cependant, cela ne les empêchent pas de supporter des analyses quantitatives complexes, notamment basées sur des automates temporisés pondérés (priced timed automata) comme dans \cite{kumar2015quantitative, audinot2018guided}.
+
+\vspace{.2cm}
+
+En revanche, par leur structure concentrée sur les états du système modélisé, les AGs permettent une représentation détaillée des informations quantitatives au cours de l'attaque. L’analyse quantitative nécessite souvent des techniques probabilistes avancées, telles que les graphes d’attaque bayésiens ou des méthodes d’inférence approximative/exacte \cite{poolsappasit2012dynamic, munoz2017efficient}. Chaque nœud peut être associé à une probabilité de compromission et un impact, et les risques sont propagés à travers les chemins du graphe pour calculer des métriques globales comme la probabilité de compromis du système ou la perte attendue.

@@ -1,0 +1,104 @@
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+\RequirePackage{amssymb}
+\RequirePackage{stmaryrd}
+\RequirePackage{xspace}
+\RequirePackage{xparse}
+\RequirePackage{scalerel}
+\RequirePackage{wasysym}
+
+%symbols
+%\newcommand\scaleobj[2]{\hstretch{#1}{\vstretch{#1}{#2}}}
+%\newcommand\Plus{\scaleobj{1.5}{+}}
+
+%semantics
+%\newcommand{\semantics}[1]{\ensuremath{\llbracket #1 \rrbracket}\xspace}
+%\newcommand{\semanticspath}[1]{\ensuremath{\llbracket #1 \rrbracket^{\text{path}}}\xspace}
+%\newcommand{\semanticstraces}[2][\LLASet]{\ensuremath{\llbracket #2 \rrbracket^{\mathrm{tr}}_{#1}}\xspace}
+\newif\ifsecu
+\secutrue  
+
+%atrees
+\ifsecu
+\newcommand{\AATree}{atree\xspace}
+\newcommand{\AATrees}{atrees\xspace}
+\newcommand{\atreesk}{\ensuremath{\tau}\xspace}
+\newcommand{\labgoal}{\ensuremath{\mu}\xspace}
+\newcommand{\atree}{\ensuremath{T}\xspace} \newcommand{\atreea}{\ensuremath{U}\xspace} \newcommand{\atreeb}{\ensuremath{U'}\xspace}
+\newcommand{\some}{\ensuremath{\text{\tt some}}\xspace}
+\newcommand{\atreeSet}{\ensuremath{\mathcal{T}}\xspace}
+\newcommand{\LLA}{\ensuremath{a}\xspace}
+\newcommand{\LLASet}{\ensuremath{\Sigma}\xspace}
+\newcommand{\HLA}{\ensuremath{\gamma}\xspace}%conflict with atfinal
+\newcommand{\HLASet}{\ensuremath{\Gamma}\xspace}
+\newcommand{\virtual}{\ensuremath{Virtual}\xspace}
+\newcommand{\atgoal}{g}
+\newcommand{\AtgoalSet}{{\mathcal G}}
+\newcommand{\precostates}[1]{\text{source}(#1)}
+\newcommand{\postcostates}[1]{\text{target}(#1)}
+\newcommand{\atinit}{\ensuremath{\iota}\xspace}
+\newcommand{\atfinal}{\ensuremath{\gamma}\xspace}
+\newcommand{\emptyconf}{\ensuremath{\top}\xspace}
+\newcommand{\nterm}{\atterm}
+
+%elemets of an attack tree
+\newcommand{\atroot}[1]{#1.\text{mg}}%\newcommand{\atroot}[1]{#1.\atgoal}
+\newcommand{\atOP}[1]{#1.\OP}
+\newcommand{\atsk}[1]{#1.\atreesk}
+\newcommand{\children}[1]{#1.\text{children}}
+\newcommand{\subgoals}[1]{#1.\text{subgoals}}
+
+
+%nodes
+\NewDocumentCommand{\OP}{o g g}{\ensuremath{\texttt{OP}\IfValueT{#1}{_{#1}}\IfNoValueF{#2}{\IfNoValueF{#3}{(#2,#3)}}}\xspace}
+\newcommand{\OPSet}{{\mathcal O}}
+\NewDocumentCommand{\SAND}{o g g}{\ensuremath{\texttt{SAND}\IfValueT{#1}{_{#1}}\IfNoValueF{#2}{(#2 \IfNoValueF{#3}{,#3})}}\xspace}
+\NewDocumentCommand{\SEQ}{o g g}{\ensuremath{\texttt{SEQ}\IfValueT{#1}{_{#1}}\IfNoValueF{#2}{(#2 \IfNoValueF{#3}{,#3})}}\xspace}
+\NewDocumentCommand{\AND}{o g g}{\ensuremath{\texttt{AND}\IfValueT{#1}{_{#1}}\IfNoValueF{#2}{(#2 \IfNoValueF{#3}{,#3})}}\xspace}
+\NewDocumentCommand{\OR}{o g g}{\ensuremath{\texttt{OR}\IfValueT{#1}{_{#1}}\IfNoValueF{#2}{(#2 \IfNoValueF{#3}{,#3})}}\xspace}
+\newcommand{\nop}{\ensuremath{\bot}\xspace}
+\newcommand{\ag}[2]{\ensuremath{ \langle #1 , #2 \rangle }\xspace}
+\else
+\NewDocumentCommand{\OP}{o g g}{\ensuremath{\IfNoValueF{#2}{#2} \ocircle \IfValueT{#1}{_{#1}} \IfNoValueF{#3}{#3}}\xspace}
+\newcommand{\OPSet}{{\mathcal O}}
+\NewDocumentCommand{\SAND}{o g g}{\ensuremath{\IfNoValueF{#2}{#2} \ogreaterthan\IfValueT{#1}{_{#1}} \IfNoValueF{#3}{#3}}\xspace}
+\NewDocumentCommand{\SEQ}{o g g}{\ensuremath{\IfNoValueF{#2}{#2} \ogreaterthan\IfValueT{#1}{_{#1}} \IfNoValueF{#3}{#3}}\xspace}
+\NewDocumentCommand{\AND}{o g g}{\ensuremath{\IfNoValueF{#2}{#2} \owedge\IfValueT{#1}{_{#1}} \IfNoValueF{#3}{#3}}\xspace}
+\NewDocumentCommand{\OR}{o g g}{\ensuremath{\IfNoValueF{#2}{#2} \ovee\IfValueT{#1}{_{#1}} \IfNoValueF{#3}{#3}}\xspace}
+\newcommand{\nop}{\ensuremath{\odot}\xspace}
+\newcommand{\ag}[2]{\ensuremath{ \{#1 \RHD #2\} }\xspace}
+\fi
+
+\NewDocumentCommand{\agelem}{o}{\ag{\atinit\IfValueT{#1}{_{#1}}}{\atfinal\IfValueT{#1}{_{#1}}}}
+\NewDocumentCommand{\agelemprime}{o}{\ag{\atinit'\IfValueT{#1}{_{#1}}}{\atfinal'\IfValueT{#1}{_{#1}}}}
+\newcommand{\concat}{\mathbin{\scaleobj{1.5}{.}}}
+
+%agraphs
+% \newcommand{\agraph}{\ensuremath{\mathcal{A}}\xspace}
+% \newcommand{\agterm}{\ensuremath{t}\xspace}
+%\NewDocumentCommand{\agtuple}{o o}{\ensuremath{(\StateSet_{\ag{\IfNoValueTF{#1}{\InitSt}{#1}}{\IfNoValueTF{#2}{\FinalSt}{#2}}},\ActSet,\Transition_{\ag{\IfNoValueTF{#1}{\InitSt}{#1}}{\IfNoValueTF{#2}{\FinalSt}{#2}}},\IfNoValueTF{#1}{\InitSt}{#1},\IfNoValueTF{#2}{\FinalSt}{#2})}\xspace}
+%\newcommand{\agsem}[2][\system]{\ensuremath{{\bf [ }#2{\bf ]}_{#1}^{\text{path}}}\xspace}
+
+% decision problems
+\protected\def\ADM{\ifmmode \mbox{\sc {\tt ADM}} \else {\sc {\tt ADM}}\xspace\fi} 
+\protected\def\LCONS{\ifmmode \mbox{\sc {\tt \ell CONS}} \else {\sc {\tt \ell CONS}}\xspace\fi} 
+\protected\def\LCOMP{\ifmmode \mbox{\sc {\tt \ell COMP}} \else {\sc {\tt \ell COMP}}\xspace\fi}  
+
+%for compatibilities issues
+\newcommand{\agp}[2]{\ag{#1}{#2}}
+
+%general tree notations
+\newcommand{\pos}{p}
+\newcommand{\PosSet}{\text{Pos}}
+\newcommand{\subtree}[2]{#1_{|#2}}
+\newcommand{\arity}[1]{\text{ar}(#1)}
+
+
+% extended atrees and patches
+\newcommand{\eatree}{\mathbb{T}}
+\newcommand{\eatreea}{\mathbb{U}}
+\newcommand{\eatreesem}[2][\system]{[[#2]]^{#1}}
+
+% SP-Graphs
+\newcommand{\pcomp}{\ensuremath{\parallel}}
+\newcommand{\scomp}{\ensuremath{\;;\;}}

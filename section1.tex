@@ -1,0 +1,45 @@
+\section{Notations}
+
+Cette section présente les notations et définitions de base utilisées dans le reste du document.
+
+\subsection{Modélisation des systèmes}
+
+\begin{definition}[Système de transition étiqueté (LTS)]
+Pour représenter l'évolution des états d'un système, nous utilisons des systèmes de transition étiquetés (LTS - Labeled Transition Systems).
+Soit $\mathcal{F}$ l'ensemble des propositions sur un ensemble d'états $S$. Un LTS est un triplet $(S, \rightarrow, \lambda)$ où $\rightarrow \subseteq S \times A \times S$ est une relation de transition étiquetée par des actions issues d'un ensemble fini $A$, et $\lambda : S \to 2^{\mathcal{F}}$ est une fonction de valuation qui associe à chaque état un ensemble de propriétés atomiques vraies dans cet état.
+\end{definition}
+
+\begin{definition}[Asset-Based System (ABS)]
+\end{definition}
+
+
+\subsection{Traces}
+
+La littérature distingue deux sémantiques principales données aux traces utilisées pour modéliser les scénarios d'attaque dans les modèles de sécurité.
+
+\begin{definition}[Taces basées sur les actions (action-based)]
+Une trace basée sur les actions, comme utilisée dans \cite{vigo2014process} est une séquence finie d'actions $a_1 a_2 \ldots a_n$ où chaque action $a_i$ appartient à $\mathbb{B}$ l'ensemble des actions élémentaires de l'attaquant, modélisé par l'ensemble $\rightarrow$ des transitions du LTS.
+\end{definition}
+
+\begin{definition}[Traces basées sur les états (state-based)]
+Une trace state-based, comme présentée dans \cite{audinot2017correct, pinchinat2020library, audinot2018guided} est une séquence finie de vulations $\nu_1 \nu_2 \ldots \nu_n$ où chaque valuation $\nu_i$ est un ensemble de propositions atomiques vraies dans un état du LTS. 
+\end{definition}
+
+\begin{definition}[Concaténation synchrone]
+\end{definition}
+
+\begin{definition}[Shuffle de traces]
+\end{definition}
+
+\begin{definition}[Composition parallèle]
+\end{definition}
+
+\subsection{Attack trees}
+
+\begin{definition}[Arbre d'attaque]
+\end{definition}
+
+\subsection{Libraries}
+
+\begin{definition}[Bibliothèque d'arbres d'attaque]
+\end{definition}

@@ -1,0 +1,79 @@
+
+####################
+# LaTeX – fichiers temporaires
+####################
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+
+# Bibliographie
+*.bbl
+*.bbl-SAVE-ERROR
+*.blg
+*.bcf
+*.run.xml
+
+# Index / glossaire
+*.idx
+*.ilg
+*.ind
+*.glg
+*.glo
+*.gls
+*.ist
+*.acn
+*.acr
+*.alg
+
+# Hyperref
+*.brf
+
+# Latexmk
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+
+# TikZ / Beamer
+*.nav
+*.snm
+*.vrb
+
+####################
+# Dossiers de build
+####################
+_build/
+build/
+out/
+
+####################
+# Fichiers temporaires éditeur
+####################
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+
+####################
+# Fichiers système
+Makefile~
+
+####################
+# macOS
+####################
+.DS_Store
+
+####################
+# À CONSERVER
+####################
+# Le PDF final est volontairement versionné
+# *.pdf  <-- volontairement NON ignoré

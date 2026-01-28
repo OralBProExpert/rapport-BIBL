@@ -1,0 +1,48 @@
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+\RequirePackage{amssymb}
+\RequirePackage{stmaryrd}
+\RequirePackage{xspace}
+\RequirePackage{amsthm}
+\RequirePackage{mathrsfs}
+
+
+%% decision problems
+%  \theoremstyle{prob}
+\newtheorem{myprob}{Problem}%[theorem]
+\newcommand{\MyProblem}[3]{%
+  \begin{myprob}[{\sc #1}]
+    ~\\
+   \begin{tabular}{|p{13cm}|} 
+\hline
+{\bf Input:} #2\\ 
+%\\
+{\bf Output:} #3\\
+\hline
+\end{tabular}%
+  \end{myprob}
+}
+
+%% decision problem
+\newcommand{\liste}{\ensuremath{\theta}\xspace}
+\newcommand{\myinput}{\mathcal{I}}
+\newcommand{\myinputtuple}[1][\OP]{(\liste,{#1},\system)}
+\newcommand{\mc}{\mbox{$\mathcal{M}c$}}
+
+%SAT
+\protected\def\SAT{\ifmmode \mbox{\sc {\tt SAT}} \else {\sc {\tt SAT}}\xspace\fi}
+\newcommand{\clauses}{\ensuremath{\mathscr{C}}\xspace}%SATinput
+\newcommand{\clause}{\ensuremath{C}\xspace}
+\newcommand{\literal}{\ensuremath{\ell}\xspace}
+
+
+%% Complexity classes
+\newcommand{\itexp}[2]{{\mbox{\textnormal{exp}}^{#1}(#2)}}
+\newcommand{\poly}{\mbox{\textnormal{poly}}}
+\protected\def\NP{\ifmmode \mbox{\sc NP} \else {\sc NP}\xspace\fi}
+\protected\def\coNP{\ifmmode \mbox{\sc co-NP} \else {\sc co-NP}\xspace\fi}
+\protected\def\PSPACE{\ifmmode \mbox{\sc Pspace} \else {\sc Pspace}\xspace\fi}
+\protected\def\NPSPACE{\ifmmode \mbox{\sc NPspace} \else {\sc NPspace}\xspace\fi}
+\protected\def\PTIME{\ifmmode \mbox{\sc P} \else {\sc P}\xspace\fi}
+\protected\def\NPTIME{\ifmmode \mbox{\sc NP} \else {\sc NP}\xspace\fi}
+\newcommand{\PideuxP}{\ensuremath{{\sc \Pi^P_2}}\xspace}

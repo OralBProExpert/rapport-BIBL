@@ -1,0 +1,60 @@
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+\RequirePackage{amssymb}
+\RequirePackage{stmaryrd}
+\RequirePackage{xspace}
+
+\newcommand{\Set}[1]{\ensuremath{\{#1\}}\xspace}
+\newcommand{\SetN}{\ensuremath{\mathbb{N}}\xspace}
+\newcommand{\Setleqn}[2][1]{\ensuremath{[#1, #2]}\xspace}%{\ensuremath{\Set{#1,\dots #2}}\xspace}
+\newcommand{\interval}[2]{\ensuremath{[#1, #2]}\xspace}
+\newcommand{\interv}[1]{\ensuremath{[#1, #1]}\xspace}
+\newcommand{\parts}[1]{\ensuremath{2^{#1}}\xspace}
+\newcommand{\suchthat}{\ensuremath{\ |\ }}
+\newcommand{\cupdis}{\ensuremath{\uplus}}
+\newcommand{\dotcup}{\ensuremath{\mathaccent\cdot\cup}}
+\newcommand{\seq}[2][n]{#2_{0},\ldots,\,#2_{#1}}
+\newcommand{\size}[1]{\ensuremath{\left|#1\right|}\xspace}
+\newcommand{\identity}{\ensuremath{id}}
+\newcommand{\texttrue}{\text{true\xspace}}
+\newcommand{\textfalse}{\text{false\xspace}}
+\newcommand{\OO}[1]{\ensuremath{O(#1)}}
+% Macros de texte
+\newcommand{\ie}{{\em i.e.,\ }}
+\newcommand{\eg}{{\em e.g.,\ }}
+\newcommand{\textiff}{if, and only if\xspace}
+
+%% macros for sets 
+\newcommand{\vide}{\emptyset}				%   {0}
+\newcommand{\union}{\cup}				%   U
+\newcommand{\UNION}{\displaystyle\bigcup}				%   U
+\newcommand{\inter}{\cap}
+\newcommand{\INTER}{\displaystyle\bigcap}
+
+%% macros for maths
+\newcommand{\SUM}{\displaystyle\sum}
+\newcommand{\TIMES}{\displaystyle\Pi}
+
+
+%% others
+\newcommand{\egdef}{:=}
+
+% expr
+\newcommand{\expr}{e}
+\newcommand{\expra}{\expr'}
+%\newcommand{\ExprSet}{\mathcal{Expr}}
+\newcommand{\emptyexpr}{0}
+\newcommand{\fullexpr}{\top}
+\newcommand{\conc}{\mathbin{.}}
+\newcommand{\shuff}{\bowtie}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+\newcommand{\exprmap}{\text{\tt ge}}
+
+% automata
+\newcommand{\AlphSet}{A}
+\newcommand{\automaton}{\mathcal{A}}
+\newcommand{\automatona}{\mathcal{A}'}
+\newcommand{\automatonb}{\mathcal{B}}
+\newcommand{\PathLast}{\mathrm{LastStates}}
+\newcommand{\runarrow}[1]{\overset{#1}{\rightarrow}}
+\newcommand{\complem}[1]{#1^c}

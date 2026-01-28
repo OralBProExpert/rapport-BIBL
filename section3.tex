@@ -1,0 +1,44 @@
+\section{Construire des arbres d'attaque pertinents}
+
+\subsection{Approches de génération d'arbres d'attaque}
+
+\cite{konsta2024computers, widel2019survey} présentent un panorama des différentes approches de génération d'arbres d'attaque jusqu'à 2024.
+Les approches sont classées selon les entrées utilisées pour la génération des arbres d'attaque.
+3 grandes catégories y sont identifiées : Model-Driven, Analysis-Driven, Vulnerability-Driven.
+
+\subsubsection{Approches basées sur des modèles (Model-Driven)}
+
+Les approches Model-Driven génèrent des arbress d'attaque avec pour seule entrée un modèle du système à analyser. 
+
+\cite{vigo2014process} propose une approche de génération d'arbres d'attaque en utilisant l'algèbre de processus. 
+
+\subsubsection{Approches basées sur l'analyse (Analysis-Driven)}
+\subsubsection{Approches basées sur les vulnérabilités (Vulnerability-Driven)}
+
+% \textcolor{OliveGreen}{Sous-section trop longue ?}
+
+Parler des 3 catégories d'approches de génération d'arbres d'attaque \cite{konsta2024computers}
+\begin{itemize}
+  \item Analysis-Driven \\
+  INPUT : Description du système + propriétés de sécurité
+  \item Vulnerability-Driven \\
+  INPUT : Description du système  + informations sur sa vulnérabilité
+  
+  \cite{gadyatskaya2017refinement} : Règles de raffinement déduites du système, mais non labellisées par des objectifs réels. Approche de génération top-down permise par leurs règles générées mais ne marche pas si un expert spécifie une librairie. Limitée à $\mathrm{OR}$ et $\mathrm{SAND}$
+  % \textcolor{OliveGreen}{Je ne sais pas trop quoi dire sur le fait que leurs règles de génération de règles de raffinement sont discutables, que l'algoritme de génération de ces règles n'est pas présenté, et qu'il n'y a pas d'analyse de complexité sans être cassant} 
+\end{itemize}
+
+\subsection{Guided design of attack trees}
+
+Parler des techniques permettant de créer un arbre d'attaque correct et utile \cite{audinot2017correct, audinot2018guided}
+
+Ouvrir sur la sous-section suivante -- comment raffiner une feuille quand on sait qu'elle est utile.
+
+\subsection{Library-based attack tree synthesis}
+
+Présentation de l'algorithme, approche bottom up \cite{pinchinat2020library}
+
+Parler de l'extension de cette approche avec le langage étendu au shuffle.
+
+% \textcolor{OliveGreen}{Redondant avec la 3.1 ?}
+

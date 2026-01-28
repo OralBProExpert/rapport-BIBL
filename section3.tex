@@ -4,13 +4,16 @@
 
 \cite{konsta2024computers, widel2019survey} présentent un panorama des différentes approches de génération d'arbres d'attaque jusqu'à 2024.
 Les approches sont classées selon les entrées utilisées pour la génération des arbres d'attaque.
-3 grandes catégories y sont identifiées : Model-Driven, Analysis-Driven, Vulnerability-Driven.
+3 grandes catégories y sont identifiées :
+\begin{itemize}
+  \item Model-Driven : les approches qui ne nécessitent qu'un modèle du système à analyser.
+  \item Analysis-Driven : les approches qui nécessitent une description du système ainsi que des propriétés de sécurité à vérifier.
+  \item Vulnerability-Driven : les approches qui nécessitent une description du système ainsi que des informations sur ses vulnérabilités.
+\end{itemize}
 
-\subsubsection{Approches basées sur des modèles de système (Model-Driven)}
+\subsubsection{Génération d'AT avec l'algèbre de processus}
 
-Les approches Model-Driven génèrent des arbress d'attaque avec pour seule entrée un modèle du système à analyser. 
-
-La méthode introduite dans \cite{vigo2014process} est l’une des premières à proposer une génération automatique d’arbres d’attaque à partir d’un modèle formel. Le système étudié est représenté dans le cadre du \emph{Value Passing Calculus} \cite{nielson2012calculus}, qui permet de décrire les composants du système comme des processus capables d’échanger des informations.
+La méthode introduite dans \cite{vigo2014process} est l’une des premières à proposer une génération automatique d’arbres d’attaque à partir d’un modèle formel. Le système étudié est représenté dans le cadre du \emph{Value Passing Calculus} \cite{nielson2012calculus}, qui permet de décrire les composants du système comme des processus capables d’échanger des informations. Cette approche ne dépend que d'un modèle du système, sans nécessiter d’informations supplémentaires sur les vulnérabilités ou les propriétés de sécurité. Elle rentre donc dans la catégorie des approches Model-Driven.
 
 Dans cette approche, chaque interaction possible avec le système peut être interprétée comme une étape conditionnée par une forme de contrôle de sécurité. Autrement dit, certaines actions ne deviennent accessibles que si l’attaquant dispose des informations nécessaires.
 
@@ -22,6 +25,10 @@ Une fois le modèle du système et l'objectif de l'attaque spécifiés, une form
 
 Une fois le modèle du système et l'objectif de l'attaque spécifiés, la génération d'repose sur une méthode d'inférence logique permettant d'identifier les différentes combinaisons d'actions que l'attaquant peut entreprendre pour atteindre son objectif. Le résultat de cette inférence est une formule propositionnelle, dépendant de propositions atomiques représentant la compromission ou la possession par l'attaquant de ressources, de secrets ou de capacités élémentaires du système. Un AT state-based est finalement construit à partir de cette formule.
 
+\vspace{0.2cm}
+
+Bien que la complexité théorique soit exponentielle dans le pire des cas, ce coût dépend de la structure du processus et n’est pas systématique, contrairement à la vérification de modèles basée sur l’exploration de l’espace d’états.
+
 \subsubsection{Approches basées sur l'analyse (Analysis-Driven)}
 
 \subsubsection{Approches basées sur les vulnérabilités (Vulnerability-Driven)}
@@ -29,15 +36,9 @@ Une fois le modèle du système et l'objectif de l'attaque spécifiés, la gén�
 % \textcolor{OliveGreen}{Sous-section trop longue ?}
 
 Parler des 3 catégories d'approches de génération d'arbres d'attaque \cite{konsta2024computers}
-\begin{itemize}
-  \item Analysis-Driven \\
-  INPUT : Description du système + propriétés de sécurité
-  \item Vulnerability-Driven \\
-  INPUT : Description du système  + informations sur sa vulnérabilité
   
-  \cite{gadyatskaya2017refinement} : Règles de raffinement déduites du système, mais non labellisées par des objectifs réels. Approche de génération top-down permise par leurs règles générées mais ne marche pas si un expert spécifie une librairie. Limitée à $\mathrm{OR}$ et $\mathrm{SAND}$
+\cite{gadyatskaya2017refinement} : Règles de raffinement déduites du système, mais non labellisées par des objectifs réels. Approche de génération top-down permise par leurs règles générées mais ne marche pas si un expert spécifie une librairie. Limitée à $\mathrm{OR}$ et $\mathrm{SAND}$
   % \textcolor{OliveGreen}{Je ne sais pas trop quoi dire sur le fait que leurs règles de génération de règles de raffinement sont discutables, que l'algoritme de génération de ces règles n'est pas présenté, et qu'il n'y a pas d'analyse de complexité sans être cassant} 
-\end{itemize}
 
 \subsection{Guided design of attack trees}
 

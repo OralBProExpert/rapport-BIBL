@@ -6,13 +6,24 @@
 Les approches sont classées selon les entrées utilisées pour la génération des arbres d'attaque.
 3 grandes catégories y sont identifiées : Model-Driven, Analysis-Driven, Vulnerability-Driven.
 
-\subsubsection{Approches basées sur des modèles (Model-Driven)}
+\subsubsection{Approches basées sur des modèles de système (Model-Driven)}
 
 Les approches Model-Driven génèrent des arbress d'attaque avec pour seule entrée un modèle du système à analyser. 
 
-\cite{vigo2014process} propose une approche de génération d'arbres d'attaque en utilisant l'algèbre de processus. 
+La méthode introduite dans \cite{vigo2014process} est l’une des premières à proposer une génération automatique d’arbres d’attaque à partir d’un modèle formel. Le système étudié est représenté dans le cadre du \emph{Value Passing Calculus} \cite{nielson2012calculus}, qui permet de décrire les composants du système comme des processus capables d’échanger des informations.
+
+Dans cette approche, chaque interaction possible avec le système peut être interprétée comme une étape conditionnée par une forme de contrôle de sécurité. Autrement dit, certaines actions ne deviennent accessibles que si l’attaquant dispose des informations nécessaires.
+
+On peut illustrer cela par un exemple simple : supposons qu’un coffre protégé par un code contienne une clé permettant d’ouvrir une porte sécurisée. Tant que l’adversaire ne connaît pas le code du coffre, il ne peut pas récupérer la clé, et donc ne peut pas accéder à la porte suivante. L’attaque complète consiste alors en une succession d’éléments à obtenir : d’abord le code, ensuite la clé, puis enfin l’ouverture de la porte.
+
+De manière analogue, dans le modèle de \cite{vigo2014process}, ces informations indispensables sont représentées par des canaux de communication. Accéder à un comportement particulier du système revient à posséder la connaissance des canaux appropriés, comme un attaquant doit posséder les bons secrets ou accès pour progresser dans son attaque.
+
+Une fois le modèle du système et l'objectif de l'attaque spécifiés, une formule propositonnelle est inférée, dépendant de propositions atomiques représentant la compromission ou la possession par l'attaquant de ressources, de secrets ou de capacités élémentaires du système. Un AT action-based est finalement inféré de cette formule.
+
+Une fois le modèle du système et l'objectif de l'attaque spécifiés, la génération d'repose sur une méthode d'inférence logique permettant d'identifier les différentes combinaisons d'actions que l'attaquant peut entreprendre pour atteindre son objectif. Le résultat de cette inférence est une formule propositionnelle, dépendant de propositions atomiques représentant la compromission ou la possession par l'attaquant de ressources, de secrets ou de capacités élémentaires du système. Un AT state-based est finalement construit à partir de cette formule.
 
 \subsubsection{Approches basées sur l'analyse (Analysis-Driven)}
+
 \subsubsection{Approches basées sur les vulnérabilités (Vulnerability-Driven)}
 
 % \textcolor{OliveGreen}{Sous-section trop longue ?}

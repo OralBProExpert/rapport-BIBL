@@ -40,10 +40,12 @@ La \cref{fig:attack-trees} présente un exemple d’arbre d’attaque action-bas
 
 Dans la littérature, les arbres d'attaque existent sous plusieurs variantes, différant par leur sémantique.
 On distingue principalement deux approches :
+% TODO: Parler des feuilles plutôt que des traces
 \begin{itemize}
   \item \textbf{Basé sur les actions (Action-based)} : où les traces de l'arbre sont une séquence d'actions de l'attaquant. Cette approche met l'accent sur les transitions d'états du système.
  
     Ainsi, une feuille de l'arbre, correspondant à un ensemble contenant une trace composée d'une seule action élémentaire de l'attaquant, qui est modélisée par une transition entre états du système.
+    % TODO: Parler des variantes (une feuille = une action, ou n'importe quelle séquence contenant cette action)
 
   \item \textbf{Basé sur les états (State-based)} : introduite dans \cite{audinot2017correct} où les traces de l'arbre sont une séquence de valuations sur l'état du système. Cette approche se concentre sur les conditions du système avant et après les actions de l'attaquant.
 \end{itemize}
@@ -132,11 +134,12 @@ La méthode prend en entrée :
 \end{enumerate}
 Et produit en sortie un arbre d’attaque $\tau_G$, labéllé par des actions de $\mathcal{H}$, tel que le langage reconnu par $\tau_G$ coïncide avec l’ensemble des traces admissibles de $G$.
 
-Cependant, cette transformation requiert une intervention humaine pour regrouper plusieurs actions élémentaires en actions de plus haut niveau, afin d'obtenir un AT pertinent.
+Cependant, cette transformation requiert une entrée externe pour regrouper plusieurs actions élémentaires en actions de plus haut niveau, afin d'obtenir un AT pertinent.
 
 \vspace{.2cm}
 
 Ainsi, bien que des traductions existent entre les ATs et les AGs, elles ne conservent pas l'objectif principal de chacun des modèles sans l'introduction d'informations analogues.
+% TODO : Peut-être donner une traduction d'AT en AG
 Cela souligne la différence dans les informations que chaque modèle cherche à capturer et à représenter : les états clés atteints au cours de l'attaque pour les AGs, et la décomposition de l'attaque en sous-objectifs organisés de manière hiérarchique pour les ATs.
 
 \subsubsection{Analyse quantitative : ATs vs AGs}

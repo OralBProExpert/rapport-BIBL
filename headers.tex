@@ -1,17 +1,21 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[french]{babel}
+% \usepackage[french]{babel}
+\usepackage{lmodern}
 \usepackage{csquotes}
 \usepackage{microtype}
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\usepackage{amsmath}
 \usepackage{amsthm}
+\usepackage[french,capitalise,nameinlink]{cleveref}
+\usepackage{subcaption}
 \newtheorem{definition}{Définition}
 \usepackage{caption}
 \usepackage[backend=biber,style=numeric]{biblatex}
 \usepackage{enumitem}
-\usepackage{hyperref}
 \usepackage{tikz}
 \usetikzlibrary{trees, shapes, arrows.meta, positioning}
 \addbibresource{references.bib}
@@ -20,6 +24,9 @@
 
 \setlist[itemize]{topsep=2mm, itemsep=1mm, partopsep=0mm, parsep=0mm}
 \setlist[enumerate]{topsep=2mm, itemsep=1mm, partopsep=0mm, parsep=0mm}
+
+\crefname{attack_trees}{figure}{figures}
+\Crefname{attack_trees}{Figure}{Figures}
 
 \input{macros/general.sty}
 \input{macros/atree.sty}

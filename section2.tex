@@ -3,7 +3,7 @@
 
 \subsection{Avantages des modèles graphiques de sécurité}
 
-Les modèles graphiques de sécurité, tels que les arbres d'attaque ou les graphes d'attaque, sont largement utilisés pour représenter et analyser les scénarios d'attaque contre des systèmes informatiques. 
+Les modèles graphiques de sécurité, tels que les arbres d'attaque \cite{schneier1999attacktrees} ou les graphes d'attaque \cite{phillips1998graph}, sont largement utilisés pour représenter et analyser les scénarios d'attaque contre des systèmes informatiques. 
 Il s'agit de structures mathématiques qui modélisent les différentes étapes qu'un attaquant peut suivre pour compromettre un système, en décomposant les objectifs d'attaque en sous-objectifs plus petits.
 
 Ces modèles offrent plusieurs avantages clés :
@@ -17,26 +17,25 @@ Ces modèles offrent plusieurs avantages clés :
 \subsubsection{Arbres d'attaque}
 
 \begin{figure}[ht]
-\centering
-\begin{minipage}{0.45\textwidth}
   \centering
-  \includegraphics[width=.5\textwidth]{images/figures/action_based_attack_tree_example.pdf}
-  \caption{Un AT action-based \cite{audinot2018thesis}}
-  \label{fig:action-based-attack-tree-example}
-\end{minipage}
-\hfill
-\begin{minipage}{0.45\textwidth}
-  \centering
-  \includegraphics[width=.7\textwidth]{images/figures/state_based_attack_tree_example.pdf}
-  \caption{Un AT state-based \cite{audinot2018thesis}}
-  \label{fig:state-based-attack-tree-example}
-\end{minipage}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=.5\textwidth]{images/figures/action_based_attack_tree_example.pdf}
+    \caption{Un AT action-based \cite{audinot2018thesis}}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=.7\textwidth]{images/figures/state_based_attack_tree_example.pdf}
+    \caption{Un AT state-based \cite{audinot2018thesis}}
+  \end{subfigure}
+  \caption{Exemples d’arbres d’attaque.}
+  \label{fig:attack-trees}
 \end{figure}
 
-Les arbres d'attaque (AT) sont des structures arborescentes où chaque nœud représente un objectif d'attaque, et les feuilles représentent des actions élémentaires que l'attaquant peut entreprendre pour atteindre ces objectifs. Leur but est de mettre en évidence Les nœuds internes sont connectés par des opérateurs logiques tels que \AND, \OR, et parfois des opérateurs séquentiels comme \SAND (\AND séquentiel) pour modéliser des dépendances temporelles entre les actions.
+Les arbres d'attaque (AT) sont des structures arborescentes où chaque nœud représente un sous-objectif d'attaque, pouvant être réduit à effectuer une action élémentaire. Les nœuds internes sont connectés par des opérateurs logiques tels que \AND, \OR, et parfois des opérateurs séquentiels comme \SAND (\AND séquentiel) pour modéliser des dépendances temporelles entre les actions. \par
 
-Les figures \ref{fig:action-based-attack-tree-example} et \ref{fig:state-based-attack-tree-example} présentent un exemple d’arbre d’attaque action-based (à gauche), et state-based (à droite). Cet exemple montre comment une attaque peut être décomposé en sous-objectifs, reliés par des opérateurs logiques \AND, \OR et \SAND.
-
+La \cref{fig:attack-trees} présente un exemple d’arbre d’attaque action-based (à gauche), et state-based (à droite). 
 \newpage
 
 Dans la littérature, les arbres d'attaque existent sous plusieurs variantes, différant par leur sémantique.
@@ -57,17 +56,25 @@ On distingue principalement deux approches :
   \caption{Exemple d'un AG}
   \label{fig:attack-graph-example}
 \end{figure}
-Dans \cite{sheyner2002automated} un graphe d'attaque (AG) est défini comme un tuple $(S, \rightarrow, S_0, S_s)$, où $S$ est un ensemble de nœuds représentant les états du système, $\rightarrow \subseteq S \times S$ est une relation de transition, $S_0 \subseteq S$ correspond à l’ensemble des états initiaux, et $S_s \subseteq S$ désigne l’ensemble des états cibles que l’attaquant cherche à atteindre.
+Dans \cite{sheyner2002automated} un graphe d'attaque (AG) est défini ainsi :
 
-La figure \ref{fig:attack-graph-example} illustre un exemple simple de graphe d’attaque, qui admet les modélisé les attaques dont le but est d’atteindre l’état $s_7$ à partir de l’état initial $s_0$. Des états intermédiaires sont inclus pour représenter les étapes clés de l’attaque.
+\begin{definition}[Graphe d'attaque]
+  Un graphe d'attaque est un tuple $(S, \rightarrow, S_0, S_s)$, où $S$ est un ensemble de nœuds représentant les états du système, $\rightarrow \subseteq S \times S$ est une relation de transition, $S_0 \subseteq S$ correspond à l’ensemble des états initiaux, et $S_s \subseteq S$ désigne l’ensemble des états cibles que l’attaquant cherche à atteindre.
+\end{definition}
 
-Une autre définition, proposée par \cite{pinchinat2014towards}, modélise un graphe d’attaque comme un tuple $(S, \delta, S_0, S_s)$, où $\delta : S \times \mathbb{B} \rightarrow S$ est une fonction de transition étiquetée par des éléments de $\mathbb{B}$, représentant les actions de l’attaquant. Cette formulation impose que chaque arête soit explicitement associée à une action spécifique, tandis que la première autorise un niveau d’abstraction plus élevé en ne contraignant pas les transitions à être directement liées à une seule action.
+La \cref{fig:attack-graph-example} illustre un exemple simple de graphe d’attaque, qui admet les modélisé les attaques dont le but est d’atteindre l’état $s_7$ à partir de l’état initial $s_0$. Des états intermédiaires sont inclus pour représenter les étapes clés de l’attaque.
+
+Une autre définition proposée par \cite{pinchinat2014towards} impose que les transitions soient étiquetées par des actions de l’attaquant :
+
+\begin{definition}[Graphe d'attaque étiqueté]
+  Un graphe d'attaque étiqueté est un tuple $(S, \delta, S_0, S_s)$, où $S$, $S_0$ et $S_s$ sont définis comme pour un graphe d'attaque classique, et $\delta : S \times \mathbb{B} \rightarrow S$ est une fonction de transition étiquetée par des éléments de $\mathbb{B}$, représentant les actions de l’attaquant.
+\end{definition}
+
+Cette définition offre une représentation exhaustive des états du système, plus adaptée pour le l'analyse automatique. Cependant, on perd la possibilité de ne représenter que les états clés atteints durant le déroulement de l’attaque, ce qui nuit à la lisibilité du modèle par les humains.
 
 \subsection{Comparaison entre arbres et graphes d'attaque}
 
 \subsubsection{Traduction d'ATs en AGs}
-
-Soit un AT $\tau$ défini sur un LTS $(S, \rightarrow, \lambda)$.
 
 Dans \cite{audinot2017correct}, un arbre d’attaque $\tau$ induit un automate
 $\automaton_\tau = (Q, A, \delta, I, F)$ tel que les traces admisses par $\automaton_\tau$ coïncide avec l’ensemble des traces admissibles de $\tau$, où :

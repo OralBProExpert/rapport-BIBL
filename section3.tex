@@ -2,24 +2,24 @@
 
 \subsection{Approches de génération d'arbres d'attaque}
 
-Le survey \cite{konsta2024computers} propose un panorama des différentes approches de génération automatique des modèles graphiques de sécurité. Ces méthodes diffèrent principalement par la manière dont les vulnérabilités du système sont détectées. On peut distinguer trois grandes catégories d'approches : l'analyse statique, la recherche d'atteignabilité dans un graphe, et le model checking. Ces méthodes prennent en entrée une description du système, ainsi qu'un objectif d'attaque, et produisent en sortie un arbre d'attaque représentant les différentes façons dont un attaquant peut atteindre cet objectif.
+Le survey \cite{konsta2024computers} propose un panorama des différentes approches de génération automatique des modèles graphiques de sécurité. Ces méthodes diffèrent principalement par la manière dont les vulnérabilités du système sont détectées. On peut distinguer trois grandes catégories d'approches : l'analyse syntaxique, la recherche d'atteignabilité dans un graphe, et le model checking. Ces méthodes prennent en entrée une description du système, ainsi qu'un objectif d'attaque, et produisent en sortie un arbre d'attaque représentant les différentes façons dont un attaquant peut atteindre cet objectif.
 
-\subsubsection{Génération d'AT par avec l'algèbre de processus}
+\subsubsection{Génération d'AT par analyse syntaxique du système}
 
 % TODO: Expliquer ce que c'est que analyse statique
-La méthode introduite dans \cite{vigo2014process} est l’une des premières à proposer une génération automatique d’arbres d’attaque à partir d’un modèle formel. Le système étudié est représenté dans le cadre du \emph{Value Passing Calculus} \cite{nielson2012calculus}, qui permet de décrire les composants du système comme des processus capables d’échanger des informations. Cette approche ne dépend que d'un modèle du système, sans nécessiter d’informations supplémentaires sur les vulnérabilités ou les propriétés de sécurité. Elle rentre donc dans la catégorie des approches Model-Driven.
+La méthode introduite dans \cite{vigo2014process} est l’une des premières à proposer une génération automatique d’arbres d’attaque à partir d’un modèle formel. Le système étudié est représenté dans le cadre du \emph{Value Passing Calculus} \cite{nielson2012calculus}, une extension du $\pi$-calculus, qui permet de décrire les composants du système comme des processus capables d’échanger des informations. Cette approche ne dépend que d'un modèle du système, sans nécessiter d’informations supplémentaires sur les vulnérabilités ou les propriétés de sécurité. Elle rentre donc dans la catégorie des approches Model-Driven.
+
+\vspace{0.2cm}
 
 Dans cette approche, chaque interaction possible avec le système peut être interprétée comme une étape conditionnée par une forme de contrôle de sécurité. Autrement dit, certaines actions ne deviennent accessibles que si l’attaquant dispose des informations nécessaires.
 
-On peut illustrer cela par un exemple simple : supposons qu’un coffre protégé par un code contienne une clé permettant d’ouvrir une porte sécurisée. Tant que l’adversaire ne connaît pas le code du coffre, il ne peut pas récupérer la clé, et donc ne peut pas accéder à la porte suivante. L’attaque complète consiste alors en une succession d’éléments à obtenir : d’abord le code, ensuite la clé, puis enfin l’ouverture de la porte.
+Ces informations sont représentées par des canaux de communication. Accéder à un comportement particulier du système revient à posséder la connaissance des canaux appropriés, comme un attaquant doit posséder les bons secrets ou accès pour progresser dans son attaque.
 
-De manière analogue, dans le modèle de \cite{vigo2014process}, ces informations indispensables sont représentées par des canaux de communication. Accéder à un comportement particulier du système revient à posséder la connaissance des canaux appropriés, comme un attaquant doit posséder les bons secrets ou accès pour progresser dans son attaque.
-
-Une fois le modèle du système et l'objectif de l'attaque spécifiés, une formule propositonnelle est inférée, dépendant de propositions atomiques représentant la compromission ou la possession par l'attaquant de ressources, de secrets ou de capacités élémentaires du système. Un AT action-based est finalement inféré de cette formule.
-
-Une fois le modèle du système et l'objectif de l'attaque spécifiés, la génération d'repose sur une méthode d'inférence logique permettant d'identifier les différentes combinaisons d'actions que l'attaquant peut entreprendre pour atteindre son objectif. Le résultat de cette inférence est une formule propositionnelle, dépendant de propositions atomiques représentant la compromission ou la possession par l'attaquant de ressources, de secrets ou de capacités élémentaires du système. Un AT state-based est finalement construit à partir de cette formule.
+Une fois le modèle du système et l'objectif de l'attaque spécifiés, une formule propositonnelle est inférée à l’aide d’une approche de type chaînage arrière (backward chaining). Cette formule dépend des propositions atomiques qui représentent la compromission ou la possession par l'attaquant de ressources, de secrets ou de capacités élémentaires du système. Un AT action-based est finalement inféré de cette formule.
 
 \vspace{0.2cm}
+
+Cette approche constitue une limite, car elle fournit une sous-approximation des attaques réelles due au niveau d’abstraction du $\pi$-calcul, qui modélise la connaissance des canaux mais pas l’usage répété de ceux-ci. L’analyse indique ainsi quels canaux doivent être devinés, sans prendre en compte le nombre d’interactions nécessaires, ce qui peut conduire à sous-estimer l’effort réel de l’attaque.
 
 Bien que la complexité théorique soit exponentielle dans le pire des cas, ce coût dépend de la structure du processus et n’est pas systématique, contrairement à la vérification de modèles basée sur l’exploration de l’espace d’états.
 

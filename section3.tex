@@ -2,17 +2,11 @@
 
 \subsection{Approches de génération d'arbres d'attaque}
 
-\cite{konsta2024computers, widel2019survey} présentent un panorama des différentes approches de génération d'arbres d'attaque jusqu'à 2024.
-Les approches sont classées selon les entrées utilisées pour la génération des arbres d'attaque.
-3 grandes catégories y sont identifiées :
-\begin{itemize}
-  \item Model-Driven : les approches qui ne nécessitent qu'un modèle du système à analyser.
-  \item Analysis-Driven : les approches qui nécessitent une description du système ainsi que des propriétés de sécurité à vérifier.
-  \item Vulnerability-Driven : les approches qui nécessitent une description du système ainsi que des informations sur ses vulnérabilités.
-\end{itemize}
+Le survey \cite{konsta2024computers} propose un panorama des différentes approches de génération automatique des modèles graphiques de sécurité. Ces méthodes diffèrent principalement par la manière dont les vulnérabilités du système sont détectées. On peut distinguer trois grandes catégories d'approches : l'analyse statique, la recherche d'atteignabilité dans un graphe, et le model checking. Ces méthodes prennent en entrée une description du système, ainsi qu'un objectif d'attaque, et produisent en sortie un arbre d'attaque représentant les différentes façons dont un attaquant peut atteindre cet objectif.
 
-\subsubsection{Génération d'AT avec l'algèbre de processus}
+\subsubsection{Génération d'AT par avec l'algèbre de processus}
 
+% TODO: Expliquer ce que c'est que analyse statique
 La méthode introduite dans \cite{vigo2014process} est l’une des premières à proposer une génération automatique d’arbres d’attaque à partir d’un modèle formel. Le système étudié est représenté dans le cadre du \emph{Value Passing Calculus} \cite{nielson2012calculus}, qui permet de décrire les composants du système comme des processus capables d’échanger des informations. Cette approche ne dépend que d'un modèle du système, sans nécessiter d’informations supplémentaires sur les vulnérabilités ou les propriétés de sécurité. Elle rentre donc dans la catégorie des approches Model-Driven.
 
 Dans cette approche, chaque interaction possible avec le système peut être interprétée comme une étape conditionnée par une forme de contrôle de sécurité. Autrement dit, certaines actions ne deviennent accessibles que si l’attaquant dispose des informations nécessaires.
@@ -29,9 +23,9 @@ Une fois le modèle du système et l'objectif de l'attaque spécifiés, la gén�
 
 Bien que la complexité théorique soit exponentielle dans le pire des cas, ce coût dépend de la structure du processus et n’est pas systématique, contrairement à la vérification de modèles basée sur l’exploration de l’espace d’états.
 
-\subsubsection{Approches basées sur l'analyse (Analysis-Driven)}
+\subsubsection{Génération d'AT par atteignabilité dans un graphe}
 
-\subsubsection{Approches basées sur les vulnérabilités (Vulnerability-Driven)}
+\subsubsection{Génération d'AT par model checking}
 
 % \textcolor{OliveGreen}{Sous-section trop longue ?}
 

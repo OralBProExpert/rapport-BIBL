@@ -40,15 +40,21 @@ La \cref{fig:attack-trees} présente un exemple d’arbre d’attaque action-bas
 
 Dans la littérature, les arbres d'attaque existent sous plusieurs variantes, différant par leur sémantique.
 On distingue principalement deux approches :
-% TODO: Parler des feuilles plutôt que des traces
-\begin{itemize}
-  \item \textbf{Basé sur les actions (Action-based)} : où les traces de l'arbre sont une séquence d'actions de l'attaquant. Cette approche met l'accent sur les transitions d'états du système.
- 
-    Ainsi, une feuille de l'arbre, correspondant à un ensemble contenant une trace composée d'une seule action élémentaire de l'attaquant, qui est modélisée par une transition entre états du système.
-    % TODO: Parler des variantes (une feuille = une action, ou n'importe quelle séquence contenant cette action)
 
-  \item \textbf{Basé sur les états (State-based)} : introduite dans \cite{audinot2017correct} où les traces de l'arbre sont une séquence de valuations sur l'état du système. Cette approche se concentre sur les conditions du système avant et après les actions de l'attaquant.
+% TODO: Parler des feuilles plutôt que des traces, parler des choix de sémantique (ex : weak SAND vs strong SAND)
+% TODO: Parler des variantes (une feuille = une action, ou n'importe quelle séquence contenant cette action)
+
+\begin{itemize}
+  \item \textbf{Basé sur les actions (Action-based)} : où les feuilles de l'arbre sont étiquetées par des actions. 
+    \begin{itemize}
+      \item Dans \cite{jhawar2015attack}, une feuille ne reconnaît que la trace composée uniquement de l'action $a$.
+      % TODO: Il manque une référence ici
+      \item Dans INSÉRER CITATION, une feuille reconnaît toutes les traces contenant au moins l'action $a$ à n'importe quelle position.
+    \end{itemize}
+  \item \textbf{Basé sur les états (State-based)} : Utilisée dans \cite{audinot2017correct, pinchinat2020library}, où les feulles de l'arbre sont un couple \ag{\atinit}{\atfinal} avec $\atinit, \atfinal \in \prop$, représentant respectivement les conditions initiales et finales du système. Dans certains cas, $\atinit$ peut être omis si aucune condition initiale spécifique n'est requise, ou si elle est triviale.
+
 \end{itemize}
+
 
 \subsubsection{Graphes d'attaque}
 
@@ -69,7 +75,7 @@ La \cref{fig:attack-graph-example} illustre un exemple simple de graphe d’atta
 Une autre définition proposée par \cite{pinchinat2014towards} impose que les transitions soient étiquetées par des actions de l’attaquant :
 
 \begin{definition}[Graphe d'attaque étiqueté]
-  Un graphe d'attaque étiqueté est un tuple $(S, \delta, S_0, S_s)$, où $S$, $S_0$ et $S_s$ sont définis comme pour un graphe d'attaque classique, et $\delta : S \times \mathbb{B} \rightarrow S$ est une fonction de transition étiquetée par des éléments de $\mathbb{B}$, représentant les actions de l’attaquant.
+  Un graphe d'attaque étiqueté est un tuple $(S, \delta, S_0, S_s)$, où $S$, $S_0$ et $S_s$ sont définis comme pour un graphe d'attaque classique, et $\delta : S \times \actions \rightarrow S$ est une fonction de transition étiquetée par des éléments de $\actions$, représentant les actions de l’attaquant.
 \end{definition}
 
 Cette définition offre une représentation exhaustive des états du système, plus adaptée pour le l'analyse automatique. Cependant, on perd la possibilité de ne représenter que les états clés atteints durant le déroulement de l’attaque, ce qui nuit à la lisibilité du modèle par les humains.
@@ -124,10 +130,10 @@ En revanche, dans \cite{pinchinat2014towards}, une traduction d’un graphe d’
 
 La méthode prend en entrée :
 \begin{enumerate}
-  \item Un graphe d’attaque $G = (S, \delta, S_0, S_s)$, où toutes les transitions de $G$ sont étiquetées par des actions issues de $\mathbb{B}$ ;
+  \item Un graphe d’attaque $G = (S, \delta, S_0, S_s)$, où toutes les transitions de $G$ sont étiquetées par des actions issues de $\actions$ ;
   \item Une hiérarchie d'actions de haut niveau $\mathbb{H} = (\{\mathcal{H}_k) \}_{0 \leq k \leq K}, \mathcal{R})$, où :
     \begin{itemize}
-      \item $\mathcal{H}_0 = \mathbb{B}$ est l'ensemble des actions élémentaires de l'attaquant ;
+      \item $\mathcal{H}_0 = \actions$ est l'ensemble des actions élémentaires de l'attaquant ;
       \item $\mathcal{H}_k$ pour $0 < k \leq K$ est un ensemble d'actions de plus haut niveau, chacune étant définie comme une séquence d'actions appartenant à $\bigcup_{0 \leq j < k} \mathcal{H}_j$. \\Pour la suite, on note $\mathcal{H} = \bigcup_{0 \leq k \leq K} \mathcal{H}_k$ l'ensemble de toutes les actions. ;
       \item $\mathcal{R} \subseteq \mathcal{H} \times \mathcal{H}^*$ est une relation définissant la décomposition des actions de plus haut niveau en séquences d'actions de niveau inférieur.
     \end{itemize}
